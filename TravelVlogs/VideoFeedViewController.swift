@@ -29,6 +29,7 @@
  */
 
 import UIKit
+import AVKit
 
 class VideoFeedViewController: UIViewController {
   var videos: [Video] = []
@@ -64,7 +65,24 @@ extension VideoFeedViewController: UITableViewDelegate {
   }
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    // 1
+    let video = videos[indexPath.row]
     
+    // 2
+    let videoURL = video.url
+    let player = AVPlayer(url: videoURL)
+    
+/*
+     1. First, you grab the video model object
+     2. All Video objects have a url property representing the path to the video file. Here, you take the url and create an AVPlayer object
+*/
+    
+    let playerViewController = AVPlayerViewController()
+    playerViewController.player = player
+    
+    present(playerViewController, animated: true) {
+        player.play()
+    }
   }
 }
 
